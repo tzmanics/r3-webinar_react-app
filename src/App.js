@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import '@progress/kendo-ui';
+import '@progress/kendo-theme-default/dist/all.css';
+import { Calendar } from '@progress/kendo-dateinputs-react-wrapper';
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dateTime: new Date()
+    };
+    this.onchange = this.onchange.bind(this);
+  }
+
+  onchange(e) {
+    console.log(e.sender.value());
+    this.setState({
+      dateTime: e.sender.value()
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Calendar value={this.state.dateTime} change={this.onchange} />
       </div>
     );
   }
